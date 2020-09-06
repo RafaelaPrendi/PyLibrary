@@ -10,3 +10,11 @@ def libra(request, id):
         'variabla_ime' : False
     }
     return render(request, 'libra.html', data)
+
+def autoret(request, id):
+    autori = get_object_or_404(models.Autor, pk=id)
+    data = {
+        'autoret' : [autori.as_dict()],
+        'titulli_i_faqes' : ' Autoret (id :{})'.format(id)
+    }
+    return render(request, 'autoret.html', data)

@@ -15,3 +15,12 @@ class Liber(models.Model):
             "cmimi": self.cmimi,
             "img_src": self.img_src
         }
+    # modeli per autoret
+class Autor(models.Model):
+    emri = models.CharField(max_length=255)
+    _id = models.IntegerField(primary_key=True)
+
+    def as_dict(self):
+        return {
+            'emri' : self.emri
+        }

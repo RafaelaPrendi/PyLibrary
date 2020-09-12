@@ -1,0 +1,14 @@
+{% extends 'baze.html' %}
+{% block titulli_i_faqes %} Results {% endblock %}
+{% block permbajtja %}
+  <h1>Search Results</h1>
+{% if Books %}
+{% for each_book in Books %} // books is list here so pick each element using for loop
+    <a href="{% url 'libra' pk=each_book.pk %}">
+    <img src="{{each_book.image.url}}" alt="No Image"></a>
+    <p>{{each_book.titulli}}</p>
+    <p>{{each_book.autori }}</p>
+    <p>Rs.{{each_book.price}}</p>
+{% endfor %}
+{% endif %}
+{% endblock %}

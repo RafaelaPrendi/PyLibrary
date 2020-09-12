@@ -1,0 +1,31 @@
+{% extends "baze.html" %}
+{% block emri_i_faqes %}
+<div class="container-fluid mt-5">
+    <h2>{{ titulli_i_faqes }}</h2>
+</div>
+{% endblock %}
+ {% block permbajtja %}
+<div class="jumbotron">
+  <h1 class="display-4"> Welcome to PyLibrary! </h1>
+  <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus in arcu elementum, vestibulum arcu vel, lobortis risus. Etiam tortor eros, ornare a ante quis, molestie porta urna. In aliquam magna nibh.
+      Aliquam tempor risus ac faucibus hendrerit. Vestibulum sed turpis non lectus sodales dignissim et a metus. Duis et interdum est</p>
+  <hr class="my-4">
+       <div class="card" style="width: 18rem;">
+      <div class="card-header">
+          <strong> We Have : </strong>
+      </div>
+      <ul class="list-group list-group-flush">
+
+        <li class="list-group-item">{{ nr_librave }} books!</li>
+        <li class="list-group-item">{{ nr_autoreve }} authors!</li>
+        <li class="list-group-item">{{nr_profil}} users!</li>
+
+      </ul>
+    </div>
+
+</div>
+     <a class="btn btn-primary btn-lg" href="#" role="button" style="margin-left : 30px;"> Login </a>
+     <a class="btn btn-primary btn-lg" href="#" role="button"> Register </a>
+  <hr>
+</div>
+{% endblock %}

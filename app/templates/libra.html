@@ -5,10 +5,7 @@
       <h2>{{ titulli_i_faqes }}</h2>
 </div>
 {% endblock %}
-{% block permbajtja %}
 
-        {% for liber in librat %}
-            {% include "komponente/liber.html" %}
-            <br/>
-        {% endfor %}
+{% block permbajtja %}
+        {% include "komponente/liber.html" %}
 {% endblock %}

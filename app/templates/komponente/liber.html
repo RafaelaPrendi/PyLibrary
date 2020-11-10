@@ -1,31 +1,38 @@
-<div class="card text-center">
-  <div class="card-body">
-    <h5 class="card-title">
-      <a href="{% url 'libra' id=liber.iid %}"> {{liber.titulli}} </a>
-    </h5>
-    <p class="card-text">{{liber.autori}}</p>
-      <img src="{{liber.img_src}}"/>
-  </div>
-  {% if user.is_authenticated and edit %}
-    {% if liber in user.profil.librat.all %}
-      <div class="text-center pb-3">
-        <form action="{% url 'hiq_liber' %}" method="post">
-          {% csrf_token %}
-          {{ hiq_form }}
-          <input type="submit" class="btn btn-primary" value="Hiq"/>
-        </form>
-      </div>
-    {% else %}
-      <div class="text-center pb-3">
-        <form action="{% url 'shto_liber' %}" method="post">
-          {% csrf_token %}
-          {{ shto_form }}
-          <input type="submit" class="btn btn-primary" value="Shto"/>
-        </form>
-      </div>
-    {% endif %}
-  {% endif %}
-  <div class="card-footer text-muted">
-      {{liber.cmimi}}
-  </div>
+<div class=" container">
+    <div class="row justify-content-center">
+        <div class="col">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'libra' id=liber.iid %}"> {{ liber.titulli }} </a>
+                    </h5>
+                    <p class="card-text">{{ liber.autori }}</p>
+                    <img src="{{liber.img_src}}"/>
+                </div>
+            </div>
+            <div class="card-footer text-muted">
+                {{liber.cmimi}}
+            </div>
+        </div>
+
+    <div class="col">
+           <div class="text-center pb-3">
+                <form action="{% url 'hiq_liber' %}" method='POST'>
+                    {% csrf_token %}
+                    {{ form }}
+                    <input type="hidden" value="{{liber.iid}}" name="lbr_id">
+                    <input type="submit" class="btn btn-outline-info btn-block" value="Hiq nga librat e mi"/>
+                </form>
+            </div>
+            <div class="text-center pb-3">
+                <form action="{% url 'shto_liber' %}" method='POST'>
+                    {% csrf_token %}
+                    {{ shto_form }}
+                    <input type="hidden" value="{{liber.iid}}" name="liber_id">
+                    <input type="submit" class="btn btn-outline-info btn-block" value="Shto tek librat e mi"/>
+                </form>
+            </div>
+    </div>
+ </div>
 </div>
+

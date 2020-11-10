@@ -1,6 +1,7 @@
 import csv
 from app.models import Liber, Autor
 
+
 def krijo_liber(autori, titulli, img_src, _id):
     cmimi = "15.00 EUR"
     liber = Liber(

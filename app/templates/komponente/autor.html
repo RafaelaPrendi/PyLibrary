@@ -1,7 +1,16 @@
 <div class="card text-center">
   <div class="card-body">
-    <h5 class="card-title">{{autor.emri}}</h5>
+    <h5 class="card-title">
+      <a href="{% url 'autore' id= autori.iid %}"> {{autori.emri}} </a>
+      </h5>
   </div>
+  <div class="text-center pb-3">
+    {% for liber in autori.librat %}
+            {% include "komponente/liber.html" %}
+            <br/>
+        {% endfor %}
+  </div>
+
   <div class="card-footer text-muted">
   </div>
 </div>

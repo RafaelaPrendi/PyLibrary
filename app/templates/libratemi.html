@@ -2,12 +2,76 @@
 
 {% block emri_i_faqes %}
 <div class="container-fluid mt-5">
-      <h2>{{ titulli_i_faqes }}</h2>
+    <h2>{{ titulli_i_faqes }}</h2>
 </div>
 {% endblock %}
 
 {% block permbajtja %}
-        {% for liber in librat %}
-            {% include "komponente/liber.html" %}
-        {% endfor %}
+{{ msg }}
+<div class="row">
+    <div class="container">
+        <div class="col">
+            <h5> Librat e {{ profil }}</h5>
+            <table class="table table-hover table-sm">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Titulli</th>
+                    <th scope="col">Vlereso:</th>
+                    <th scope="col">Hiq nga lista ime</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for liber in libra %}
+                <tr>
+                    <td>{{ liber.iid }}</td>
+                    <td>{{ liber.titulli }}</td>
+                    <td>
+                        <div class="d-flex justify-content-center my-4">
+                            <span class="font-weight-bold indigo-text mr-2 mt-1">0</span>
+                            {% csrf_token %}
+                            {{ form }}
+                            <form class="range-field w-25" action="{% url 'get_rating' %}" name="ratingForm"
+                                  method="get">
+                                <input class="border-0" type="range" min="0" max="5" step="0.25" list="tickmarks"
+                                       name="rating" id="rangeInput" oninput="output.value = rangeInput.value"/>
+                                <input type="hidden" value="{{liber.iid}}" name="lbr_id">
+                                <datalist id="tickmarks">
+                                    <option value="0 to 5">0</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                </datalist>
+                                <div class="container w-25 p-3">Vlera:
+                                    <output id="output" for="rangeInput"></output>
+                                </div>
+                                <input type="submit" value="Rate">
+                            </form>
+                            <span class="font-weight-bold purple-text ml-2 mt-1" style='padding-left: 65px;'>5</span>
+                        </div>
+                    </td>
+                    <td>
+                        <form action="{% url 'hiq_liber' %}" method='POST'>
+                            {% csrf_token %}
+                            {{ form }}
+                            <input type="hidden" value="{{liber.iid}}" name="lbr_id">
+                            <input type="submit" value="Hiq">
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--Log out button -->
+<div class="row">
+    <div class="col">
+        <div class="container">
+            <a class="btn btn-outline-info btn-lg btn-block" href="{% url 'Logout' %}" role="button"> Log Out </a>
+        </div>
+    </div>
+</div>
 {% endblock %}

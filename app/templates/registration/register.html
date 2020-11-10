@@ -1,0 +1,16 @@
+{% extends 'baze.html' %}
+
+{% block titulli_i_faqes %}Register{% endblock %}
+
+{% block permbajtja %}
+  <div class="card text-center">
+  <div class="card-body">
+    <h2>Regjistrohuni</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" value="Register">Register</button>
+    </form>
+  </div>
+  </div>
+{% endblock %}

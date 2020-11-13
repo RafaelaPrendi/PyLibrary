@@ -14,6 +14,7 @@ from django import forms
 import random
 from django.views.generic import  ListView
 from django.contrib import messages
+
 @require_http_methods(["GET"])
 def libra(request, id):
     # "get_object_or_404"
@@ -186,12 +187,31 @@ def get_rating(request):
     current_user = request.user
     liber_id = request.GET.get('lbr_id')
     # add rating to rating table
-    rating = Rating(
+    rating = Rating.objects.update_or_create(
         user=current_user,
         liber=Liber.objects.get(iid=liber_id),
         rating=rate_value
-    )
+    )[0]
     rating.save()
     data = {'rate_val': rate_value}
-    return render(request, 'rating.html', data)
+    #return render(request, 'rating.html', data)
+    return redirect('librat_e_mi')
+
+from .recommend import get_recommends
+@login_required(login_url='/accounts/login/')
+def recommend(request):
+    current_user = request.user
+    current_user_ratings = []
+
+    # get ratings from this user in form of list of tuples
+    ratings = Rating.objects.filter(user=current_user)
+    for rating in ratings:
+        current_user_ratings.append((str(rating.liber.titulli), float(rating.rating)))
+
+    # pass ratings to get_recommends
+    recommendations = get_recommends(user_ratings=current_user_ratings)
+    data = {'recommendations': recommendations,
+            'user': current_user}
+    return render(request, 'rekomandime.html', data)
+
 

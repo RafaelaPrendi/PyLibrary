@@ -46,7 +46,7 @@
                                 <div class="container w-25 p-3">Vlera:
                                     <output id="output" for="rangeInput"></output>
                                 </div>
-                                <input type="submit" value="Rate">
+                                <input type="submit" value="Vlereso">
                             </form>
                             <span class="font-weight-bold purple-text ml-2 mt-1" style='padding-left: 65px;'>5</span>
                         </div>
@@ -56,7 +56,7 @@
                             {% csrf_token %}
                             {{ form }}
                             <input type="hidden" value="{{liber.iid}}" name="lbr_id">
-                            <input type="submit" value="Hiq">
+                            <input type="submit" value="Hiq nga lista">
                         </form>
                     </td>
                 </tr>
@@ -71,6 +71,15 @@
     <div class="col">
         <div class="container">
             <a class="btn btn-outline-info btn-lg btn-block" href="{% url 'Logout' %}" role="button"> Log Out </a>
+        </div>
+    </div>
+</div>
+<!-- recommendation button -->
+<br>
+<div class="row">
+    <div class="col">
+        <div class="container">
+            <a class="btn btn-outline-info btn-lg btn-block" href="{% url 'recommend' %}" role="button"> Shiko rekomandimet </a>
         </div>
     </div>
 </div>

@@ -1,85 +1,54 @@
 import csv
-from app.models import Liber, Autor
+from app.models import Liber, Autor, Rating
+from django.contrib.auth.models import User
 
 
-def krijo_liber(autori, titulli, img_src, _id):
-    cmimi = "15.00 EUR"
-    liber = Liber(
-        titulli=titulli,
-        autori=autori,
-        cmimi=cmimi,
-        img_src=img_src,
-        iid=_id
+def krijo_rating(user, liber, rating):
+    rating = Rating(
+        user=user,
+        liber=liber,
+        rating=rating
     )
-    liber.save()
+    rating.save()
 
-def krijo_autor(emer, _id):
-    autor = Autor(
-        emri=emer.title(),
-        iid=_id
-    )
-    autor.save()
-def krijo_lidhje(id_liber, emer_autori):
-    libri = Liber.objects.get(iid=id_liber)
-    autori = Autor.objects.get(emri=emer_autori.lower().title())
+def krijo_lidhje(user_id, book_id, rating):
+    libri = Liber.objects.filter(iid=book_id)
+    user = User.objects.get(id=user_id)
+    rating = Rating.objects.filter(rating=rating)
     # <fusha>.add(<objekti>)
-    autori.librat.add(libri)
+    rating.liber.add(libri)
+    rating.user.add(user)
     # <objekti>.save() -> ben qe ndryshimet te jene ne databaze
-    autori.save()
-def krijo_librat():
-    with open('books.csv', 'r', encoding='utf8') as data:
+    rating.save()
+def krijo_ratings():
+    with open('ratings.csv', 'r', encoding='utf8') as data:
         reader = csv.reader(data)
         for rrjesht in reader:
-            autori = rrjesht[7]
-            titulli = rrjesht[9]
-            img_src = rrjesht[-2]
-            _id = rrjesht[0]
-            krijo_liber(
-                autori,
-                titulli,
-                img_src, _id
-            )
+            user_id = rrjesht[0]
+            book_id = rrjesht[1]
+            rating = rrjesht[2]
+            krijo_rating(user_id, book_id, rating)
 
-def krijo_autoret():
-    autore = set()
-    with open('books.csv', 'r', encoding='utf8') as data:
-        reader = csv.reader(data)
-        for rrjesht in reader:
-            autori = rrjesht[7]
-            autore.add(autori.lower())
-    autoret = list(autore)
-    autoret.sort()
-    for _id, emer in enumerate(list(autoret)):
-        krijo_autor(emer, _id)
 
 def krijo_lidhjet():
-    with open('books.csv', 'r', encoding='utf8') as data:
+    with open('ratings.csv', 'r', encoding='utf8') as data:
         reader = csv.reader(data)
         for rrjesht in reader:
-            autori = rrjesht[7]
-            id_liber = rrjesht[0]
-            krijo_lidhje(id_liber, autori)
+            user_id = rrjesht[0]
+            titulli = rrjesht[1]
+            rating = rrjesht[2]
+            krijo_lidhje(user_id, titulli, rating)
 def zbraz():
-    Liber.objects.all().delete()
-    Autor.objects.all().delete()
+    Rating.objects.all().delete()
 
-def numri_i_librave():
-    return Liber.objects.all().count()
-
-def numri_i_autoreve():
-    return Autor.objects.all().count()
+def numri_i_rating():
+    return Rating.objects.all().count()
 
 def run():
     print("Pastrim i DB ...")
     zbraz()
-    print('Krijo librat ...')
-    print('(Libra) Numri para:', numri_i_librave())
-    krijo_librat()
-    print('(Libra) Numri pas:', numri_i_librave())
-    print('Krijo autoret ...')
-    print('(Autore) Numri para:', numri_i_autoreve())
-    krijo_autoret()
-    print('(Autore) Numri pas:', numri_i_autoreve())
-    print('Krijo lidhjet ...')
+    print('Krijo rating ...')
+    print('(Rating) Numri para:', numri_i_rating())
+    print('(Rating) Numri pas:', numri_i_rating())
     krijo_lidhjet()
 

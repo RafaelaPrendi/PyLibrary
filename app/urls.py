@@ -14,4 +14,5 @@ urlpatterns = [
     path(r'libratemi/', views.librat_e_mi, name='librat_e_mi'),
     path(r'results/', views.search, name='search'),
     path(r'rating/', views.get_rating, name='get_rating'),
+    path(r'rekomandime/', views.recommend, name='recommend'),
 ]

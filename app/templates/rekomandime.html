@@ -1,0 +1,45 @@
+{% extends "baze.html" %}
+
+{% block emri_i_faqes %}
+<div class="container-fluid mt-5">
+    <h2>{{ titulli_i_faqes }}</h2>
+</div>
+{% endblock %}
+
+{% block permbajtja %}
+<div class="row">
+    <div class="container">
+        <div class="col"><h5>{{ user }}, ne ju sugjerojme keto libra: </h5></div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <table class="table table-hover table-sm table-borderless">
+                <thead>
+                <tr>
+                    <th scope="col">Titulli</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for key, value in recommendations.items %}
+                <tr><td>{{ key }}</td>
+                    <td> <a href=""> Shiko me shume </a></td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    </div>
+</div>
+</div>
+<br>
+<!--kthehu te libratemi -->
+<div class="row">
+    <div class="col">
+        <div class="container">
+            <a class="btn btn-outline-info btn-lg btn-block" href="{% url 'librat_e_mi' %}" role="button"> Kthehu tek librat e mi </a>
+        </div>
+    </div>
+</div>
+<br>
+{% endblock %}

@@ -24,8 +24,9 @@
                 </thead>
                 <tbody>
                 {% for key, value in recommendations.items %}
-                <tr><td>{{ key }}</td>
-                    <td> <a href=""> Shiko me shume </a></td></tr>
+                <tr>
+                    <td>{{ key }}</td>
+                    <td> <a href="{% url 'libra' value.iid %}"> Shiko me shume </a></td></tr>
                     {% endfor %}
                 </tbody>
             </table>

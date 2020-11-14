@@ -1,7 +1,7 @@
 {% extends 'baze.html' %}
 {% block titulli_i_faqes %} Results {% endblock %}
 {% block permbajtja %}
-  <h1>Search Results</h1>
+  <h3>Rezultatet e kerkimit:</h3>
 {% if Books %}
 {% for each_book in Books %}
     <a href="{% url 'libra' id=each_book.iid %}">
@@ -14,9 +14,16 @@
 
 {% if Authors %}
 {% for each_author in Authors %}
-<a href="{% url 'autore' id=each_author.iid %}"></a>
-    <p>{{each_author.emri}}</p>
-    <p>{{each_author.librat }}</p>
+<div class="row">
+    <div class="col">
+        <div class="container">
+            <a href="{% url 'autore' each_author.iid %}"><h5>{{each_author.emri}}</h5> </a>
+    {% for liber in each_author.librat.all %}
+    <p>{{ liber.titulli }}</p>
+    {% endfor %}
 {% endfor %}
+        </div>
+    </div>
+</div>
 {% endif %}
 {% endblock %}

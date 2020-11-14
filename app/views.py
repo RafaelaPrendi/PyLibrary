@@ -210,8 +210,15 @@ def recommend(request):
 
     # pass ratings to get_recommends
     recommendations = get_recommends(user_ratings=current_user_ratings)
+    liber_id = []
+    for titull in recommendations.keys():
+            liber_obj = Liber.objects.filter(titulli=titull)[0]
+            liber_id.append(liber_obj)
+
+    recommendations = dict(zip(recommendations.keys(), liber_id))
     data = {'recommendations': recommendations,
-            'user': current_user}
+            'user': current_user,
+            }
     return render(request, 'rekomandime.html', data)
 
 
